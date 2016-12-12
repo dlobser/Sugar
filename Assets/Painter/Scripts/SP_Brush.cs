@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using HTC.UnityPlugin.Vive;
 
+
+// Attach to Vive controllers
+
 namespace ONSP
 {
     public class SP_Brush : MonoBehaviour
@@ -11,7 +14,8 @@ namespace ONSP
         public bool left;
         string whichHand;
         HandRole hand;
-        public SP_Stroke stroke;
+        public SP_Stroke[] strokes;
+		int whichStroke;
         SP_Stroke thisStroke;
         bool isDrawing;
         public SP_Sequencer sequencer;
@@ -35,11 +39,16 @@ namespace ONSP
         // Update is called once per frame
         void Update()
         {
+			if (ViveInput.GetPress (hand, ControllerButton.Pad)) {
+				whichStroke++;
+				if (whichStroke >= strokes.Length)
+					whichStroke = 0;
+			}
             if (ViveInput.GetPress(hand, ControllerButton.Trigger))
             {
                 if (!isDrawing)
                 {
-                    thisStroke = Instantiate(stroke);
+                    thisStroke = Instantiate(strokes[whichStroke]);
                     thisStroke.Setup();
                     sequencer.MakeStroke(thisStroke, this);
                     isDrawing = true;
@@ -53,10 +62,6 @@ namespace ONSP
             }
         }
 
-        void Press(HandRole hand,string message)
-        {
-
-
-        }
+       
     }
 }

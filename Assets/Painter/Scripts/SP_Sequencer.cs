@@ -17,16 +17,14 @@ namespace ONSP {
         int whichBulb;
 
         void Start () {
-            for (int i = 0; i < layerAmount; i++)
-            {
+            for (int i = 0; i < layerAmount; i++){
                 layers.Add(Instantiate(layer));
                 layers[i].Init();
             }
            
 	    }
 	    
-        public void MakeStroke(SP_Stroke stroke ,SP_Brush brush)
-        {
+        public void MakeStroke(SP_Stroke stroke ,SP_Brush brush){
             SP_Bulb b = layers[0].FindClosestBulb(brush.transform.position);
             //stroke.container = layers[0].GetComponent<SP_BuildBulbs>().container;
             b.strokes.Add(stroke);
@@ -34,10 +32,11 @@ namespace ONSP {
         }
 
         void Update () {
+			
             cutTime = 60/bpm;
             counter += Time.deltaTime;
-            if(counter>cutTime)
-            {
+
+            if(counter>cutTime){
                 counter = 0;
                 whichBulb++;
                 if (whichBulb >= layers[0].bulbs.Count)
@@ -45,10 +44,8 @@ namespace ONSP {
                 layers[0].PingBulb(whichBulb);
             }
 
-            for (int i = 0; i < layers.Count; i++)
-            {
-                for (int j = 0; j < layers[i].bulbs.Count; j++)
-                {
+            for (int i = 0; i < layers.Count; i++){
+                for (int j = 0; j < layers[i].bulbs.Count; j++){
                     layers[i].bulbs[j].Animate();
                 }
             }

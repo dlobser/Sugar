@@ -8,16 +8,16 @@ namespace ONSP
     {
         public List<SP_Bulb> bulbs;
         SP_BuildBulbs builder;
-        public int amount;
-        public float radius;
+        public int bulbAmount;
+        public float bulbRadius;
 
         // Use this for initialization
         public void Init()
         {
             bulbs = new List<SP_Bulb>();
             builder = GetComponent<SP_BuildBulbs>();
-            builder.amount = amount;
-            builder.radius = radius;
+			builder.amount = bulbAmount;
+			builder.radius = bulbRadius;
             builder.container = this.gameObject;
             bulbs = builder.Build(bulbs);
 

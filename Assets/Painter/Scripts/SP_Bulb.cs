@@ -8,22 +8,22 @@ namespace ONSP
     {
 
         public List<SP_Stroke> strokes;
-        public SP_Ping[] pings;
+		public GameObject indicator;
         // Use this for initialization
 
           
         void Start()
         {
             strokes = new List<SP_Stroke>();
-            pings = GetComponentsInChildren<SP_Ping>();
+
         }
 
         public void Ping()
         {
-            for (int i = 0; i < pings.Length; i++)
-            {
-                pings[i].Ping();
-            }
+			if(indicator!=null)
+				if (indicator.GetComponent<SP_Ping> () != null)
+					indicator.GetComponent<SP_Ping> ().Ping ();
+				
             for (int i = 0; i < strokes.Count; i++)
             {
                 strokes[i].Play();
